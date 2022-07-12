@@ -1,9 +1,9 @@
-name: test Flow
+name: office Flow
 
 on:
   push:
     paths:
-      - 'Records/testFlow.txt'
+      - 'Records/officeFlow.txt'
   workflow_dispatch:
 
 jobs:
@@ -42,18 +42,18 @@ jobs:
          run: sleep 30s
          shell: bash
 #############################################################################################
-       - name: Deploying and Running Rss Hub Flow
+       - name: Deploying and Running Office Flow
          timeout-minutes: 300
          continue-on-error: true
          run: |
-           git clone https://rocket-boys:${{ secrets.GH_TOKEN }}@github.com/rocket-boys/test test && cd test && sudo docker-compose up --build
+           git clone https://rocket-boys:${{ secrets.GH_TOKEN }}@github.com/rocket-boys/office office && cd office && sudo docker-compose up --build
 #############################################################################################
        - name: Send Record to Github
          continue-on-error: true
          run: |
               git clone https://github.com/rocket-boys/spaceflow
               cd spaceflow || exit 1
-              echo $(TZ='${{ secrets.TZ }}' date) >> Records/testFlow.txt
-              git add Records/testFlow.txt
-              git commit -m "test Workflow : add recorded loop to logs $(TZ='${{ secrets.TZ }}' date)"
+              echo $(TZ='${{ secrets.TZ }}' date) >> Records/officeFlow.txt
+              git add Records/officeFlow.txt
+              git commit -m "office Workflow : add recorded loop to logs $(TZ='${{ secrets.TZ }}' date)"
               git push -q https://${{ secrets.GH_TOKEN }}@github.com/rocket-boys/spaceflow HEAD:main            
